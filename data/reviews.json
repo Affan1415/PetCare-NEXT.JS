@@ -1,0 +1,51 @@
+[
+  {
+    "petId": 1,
+    "id": "2023-11-01T12:00:00.000Z",
+    "username": "John Doe",
+    "review": "Great pet! Very friendly and well-behaved.",
+    "rating": 5
+  },
+  {
+    "petId": 2,
+    "id": "2023-11-02T13:30:00.000Z",
+    "username": "Jane Smith",
+    "review": "Super playful and loves to cuddle!",
+    "rating": 4
+  },
+  {
+    "petId": 1,
+    "id": "2024-11-08T15:27:41.848Z",
+    "username": "amna",
+    "review": "pookie",
+    "rating": 3
+  },
+  {
+    "petId": 4,
+    "id": "2024-11-08T15:28:28.953Z",
+    "username": "maria",
+    "review": "beautiful",
+    "rating": 5
+  },
+  {
+    "petId": 1,
+    "id": "2024-11-09T19:19:13.515Z",
+    "username": "mahreen",
+    "review": "cute",
+    "rating": 1
+  },
+  {
+    "petId": 1,
+    "id": "2024-11-09T19:52:50.286Z",
+    "username": "affan",
+    "review": "it is very nice",
+    "rating": 3
+  },
+  {
+    "petId": 2,
+    "id": "2024-11-09T20:09:48.795Z",
+    "username": "affan",
+    "review": "gvbhjn",
+    "rating": 5
+  }
+]
