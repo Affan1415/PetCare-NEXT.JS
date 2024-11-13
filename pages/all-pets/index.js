@@ -2,11 +2,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PetCard from "@/components/PetCard/PetCard";
+import  useAuth  from "@/lib/useAuth"
+
 
 export default function AllPets() {
     const [pets, setPets] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { user } = useAuth();
+    console.log(user);
+    // const firebaseId = user.uid;
 
     useEffect(() => {
         const fetchPets = async () => {
@@ -37,7 +42,7 @@ export default function AllPets() {
                     <p>No pets available.</p>
                 ) : (
                     pets.map((pet) => (
-                        <PetCard key={pet._id} pet={pet} />
+                        <PetCard key={pet._id} pet={pet} userId={user.uid} />
                     ))
                 )}
             </div>
