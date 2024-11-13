@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useAuth } from "@/lib/useAuth"
+import  useAuth  from "@/lib/useAuth"
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebase";
@@ -7,20 +7,21 @@ import { signOut } from 'firebase/auth';
 
 
 export default function Header() {
-    const [user, setUser] = useState(null);
+    const { user } = useAuth();
+    // const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user);
-                console.log(user.Created)
-            } else {
-                setUser(null);
-            }
-        });
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, (user) => {
+    //         if (user) {
+    //             setUser(user);
+    //             console.log(user.Created)
+    //         } else {
+    //             setUser(null);
+    //         }
+    //     });
 
-        return () => unsubscribe(); // Cleanup the subscription on unmount
-    }, []);
+    //     return () => unsubscribe(); // Cleanup the subscription on unmount
+    // }, []);
 
     const handleLogout = async () => {
         try {
@@ -44,9 +45,9 @@ export default function Header() {
                 <nav className="flex items-center space-x-6">
                     <ul className="flex space-x-6">
                         <li>
-                            <a href="#adopt" className="hover:text-yellow-300 transition duration-300">
+                            <Link href="/all-pets" className="hover:text-yellow-300 transition duration-300">
                                 Adopt a Pet
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a href="#articles" className="hover:text-yellow-300 transition duration-300">
@@ -69,7 +70,7 @@ export default function Header() {
                         {user ? (
                             <>
                                 <Link onClick={handleprofile}
-                                href="/profile" >
+                                href={`/profile/${user.uid}`} >
                                     <button className="text-white py-2 px-6 font-semibold hover:underline">
                                         Welcome, {user.email}
                                     </button>
