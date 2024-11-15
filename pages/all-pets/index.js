@@ -42,7 +42,7 @@ export default function AllPets() {
                     <p>No pets available.</p>
                 ) : (
                     pets.map((pet) => (
-                        <PetCard key={pet._id} pet={pet} userId={user.uid} />
+                        <PetCard key={pet._id} pet={pet} userId={user?.uid ? user.uid : false} />
                     ))
                 )}
             </div>

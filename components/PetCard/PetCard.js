@@ -45,14 +45,16 @@ const PetCard = ({ pet, userId }) => {
                         <button className="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-400">
                             Adopt {pet.name}
                         </button>
-                        <button
-                            onClick={handleFavouriteToggle}
-                            className={`px-4 py-2 text-sm rounded-lg ${
-                                isFavourite ? "bg-red-500 text-white" : "bg-gray-300 text-gray-700"
-                            } hover:${isFavourite ? "bg-red-400" : "bg-gray-400"}`}
-                        >
-                            {isFavourite ? "Remove from Favourites" : "Add to Favourites"}
-                        </button>
+                        {userId ? (
+                            <button
+                                onClick={handleFavouriteToggle}
+                                className={`px-4 py-2 text-sm rounded-lg ${isFavourite ? "bg-red-500 text-white" : "bg-gray-300 text-gray-700"
+                                    } hover:${isFavourite ? "bg-red-400" : "bg-gray-400"}`}
+                            >
+                                {isFavourite ? "Remove from Favourites" : "Add to Favourites"}
+                            </button>
+                        ) : null}
+
                     </div>
                 </div>
             </div>
