@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 
 const PetCard = ({ pet, userId }) => {
     const [isFavourite, setIsFavourite] = useState(false);
 
-    // add use effect
     const handleFavouriteToggle = async () => {
         try {
             if (!isFavourite) {
@@ -21,15 +21,17 @@ const PetCard = ({ pet, userId }) => {
 
     return (
         <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-300">
-            <div className="relative h-48 w-full">
-                <Image
-                    src={pet.photos[0] || "/images/default-pet.jpg"}
-                    alt={pet.name}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-t-lg"
-                />
-            </div>
+            <Link href={`/pets/${pet._id}`}>
+                <div className="relative h-48 w-full cursor-pointer">
+                    <Image
+                        src={pet.photos[0] || "/images/default-pet.jpg"}
+                        alt={pet.name}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-t-lg"
+                    />
+                </div>
+            </Link>
 
             <div className="p-6">
                 <h3 className="text-2xl font-semibold mb-2">{pet.name}</h3>
@@ -42,9 +44,11 @@ const PetCard = ({ pet, userId }) => {
                 <div className="flex justify-between items-center">
                     <p className="text-sm text-gray-500">{pet.adoptionStatus}</p>
                     <div className="flex space-x-2">
-                        <button className="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-400">
-                            Adopt {pet.name}
-                        </button>
+                        <Link href={`/pets/${pet._id}`} passHref>
+                            <button className="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-400">
+                                Adopt {pet.name}
+                            </button>
+                        </Link>
                         {userId ? (
                             <button
                                 onClick={handleFavouriteToggle}
@@ -54,7 +58,6 @@ const PetCard = ({ pet, userId }) => {
                                 {isFavourite ? "Remove from Favourites" : "Add to Favourites"}
                             </button>
                         ) : null}
-
                     </div>
                 </div>
             </div>
