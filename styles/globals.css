@@ -1,0 +1,4 @@
+/* Adjusted container width to accommodate more columns */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

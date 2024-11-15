@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "title": "Buddy",
+    "description": "A friendly Golden Retriever looking for a home.",
+    "color": "Golden",
+    "qualities": ["Friendly", "Loyal", "Energetic"],
+    "image": "/images/buddy.jpg",
+    "quantity": 3,
+    "article": "Buddy is a wonderful golden retriever with a heart of gold. He loves playing with kids, fetching balls, and going on long walks. His loyal and friendly nature makes him a great family pet."
+
+  },
+  {
+    "id": 2,
+    "title": "Mittens",
+    "description": "A playful kitten that loves to snuggle.",
+    "color": "Gray",
+    "qualities": ["Playful", "Affectionate", "Curious"],
+    "image": "/images/mittens.jpg",
+    "quantity": 5,
+    "article": "Buddy is a wonderful golden retriever with a heart of gold. He loves playing with kids, fetching balls, and going on long walks. His loyal and friendly nature makes him a great family pet."
+
+  },
+  {
+    "id": 3,
+    "title": "Shadow",
+    "description": "A loyal German Shepherd with lots of energy.",
+    "color": "Black and Tan",
+    "qualities": ["Protective", "Intelligent", "Active"],
+    "image": "/images/shadow.jpg",
+    "quantity": 2,
+    "article": "Buddy is a wonderful golden retriever with a heart of gold. He loves playing with kids, fetching balls, and going on long walks. His loyal and friendly nature makes him a great family pet."
+
+  },
+  {
+    "id": 4,
+    "title": "parrot",
+    "description": "A loyal parrot that talks too much.",
+    "color": "Green",
+    "qualities": ["Protective", "Intelligent", "Active"],
+    "image": "/images/parrot.jpg",
+    "quantity": 2,
+    "article": "Buddy is a wonderful golden retriever with a heart of gold. He loves playing with kids, fetching balls, and going on long walks. His loyal and friendly nature makes him a great family pet."
+
+  },
+  {
+    "id": 5,
+    "title": "Catty",
+    "description": "A cat full of attitude.",
+    "color": "Black and White",
+    "qualities": ["Protective", "Intelligent", "Active"],
+    "image": "/images/catty.jpg",
+    "quantity": 2,
+    "article": "Buddy is a wonderful golden retriever with a heart of gold. He loves playing with kids, fetching balls, and going on long walks. His loyal and friendly nature makes him a great family pet."
+
+  },
+  {
+    "id": 6,
+    "title": "Eclectus",
+    "description": " Soft, sweet, and fuzzy",
+    "color": "Red and Blue",
+    "qualities": ["Protective", "Intelligent", "Active"],
+    "image": "/images/eclectus.jpg",
+    "quantity": 5,    "article": "Buddy is a wonderful golden retriever with a heart of gold. He loves playing with kids, fetching balls, and going on long walks. His loyal and friendly nature makes him a great family pet."
+
+  },
+  {
+    "id": 7,
+    "title": "Budgie",
+    "description": " Soft, sweet, and fuzzy",
+    "color": "Black and Blue",
+    "qualities": ["Protective", "Intelligent", "Active"],
+    "image": "/images/budgie.jpg",
+    "quantity": 5,    "article": "Budgie is a wonderful golden retriever with a heart of gold. He loves playing with kids, fetching balls, and going on long walks. His loyal and friendly nature makes him a great family pet."
+
+  },
+  {
+    "id": 8,
+    "title": "Persian Cat",
+    "description": " Soft, sweet, and fuzzy",
+    "color": "Beige",
+    "qualities": ["Protective", "Intelligent", "Active"],
+    "image": "/images/persian.jpg",
+    "quantity": 5,    "article": "Budgie is a wonderful golden retriever with a heart of gold. He loves playing with kids, fetching balls, and going on long walks. His loyal and friendly nature makes him a great family pet."
+
+  }
+]
