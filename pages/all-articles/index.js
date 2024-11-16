@@ -1,31 +1,6 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import ArticleCard from "@/components/ArticleCard/ArticleCard";
 
-export default function AllArticles() {
-    const [articles, setArticles] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const response = await axios.get("/api/articles/articles");
-                setArticles(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching articles:", error);
-                setError("Failed to load articles.");
-                setLoading(false);
-            }
-        };
-
-        fetchArticles();
-    }, []);
-
-    if (loading) return <div className="text-center py-8">Loading articles...</div>;
-    if (error) return <div className="text-center py-8">{error}</div>;
-
+export default function AllArticles({ articles }) {
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <h1 className="text-3xl font-bold mb-6 text-center">All Articles</h1>
@@ -40,4 +15,28 @@ export default function AllArticles() {
             </div>
         </div>
     );
+}
+
+export async function getStaticProps() {
+    try {
+        // Replace with your API endpoint
+        const response = await fetch(`http://localhost:3000/api/articles/articles`);
+        const articles = await response.json();
+
+        return {
+            props: {
+                articles,
+            },
+            revalidate: 60, 
+        };
+    } catch (error) {
+        console.error("Error fetching articles:", error);
+
+        return {
+            props: {
+                articles: [], 
+            },
+            revalidate: 60, 
+        };
+    }
 }

@@ -2,34 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function ArticleDetail() {
-    const router = useRouter();
-    const { id } = router.query;
-
-    const [article, setArticle] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        if (!id) return;
-
-        const fetchArticle = async () => {
-            try {
-                const response = await axios.get(`/api/articles/${id}`);
-                setArticle(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching article:", error);
-                setError("Failed to load the article.");
-                setLoading(false);
-            }
-        };
-
-        fetchArticle();
-    }, [id]);
-
-    if (loading) return <div className="text-center py-8">Loading article...</div>;
-    if (error) return <div className="text-center py-8">{error}</div>;
+export default function ArticleDetail({ article }) {
+    if (!article) return <div className="text-center py-8">Article not found.</div>;
 
     return (
         <div className="min-h-screen bg-gray-100 p-6">
@@ -47,4 +21,51 @@ export default function ArticleDetail() {
             </div>
         </div>
     );
+}
+
+export async function getStaticPaths() {
+    try {
+        const response = await fetch(`http://localhost:3000/api/articles`);
+        const articles = await response.json();
+
+        const paths = articles.map((article) => ({
+            params: { id: article._id },
+        }));
+
+        return {
+            paths,
+            fallback: 'blocking', 
+        };
+    } catch (error) {
+        console.error("Error fetching paths:", error);
+
+        return {
+            paths: [],
+            fallback: 'blocking',
+        };
+    }
+}
+
+export async function getStaticProps({ params }) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/articles/${params.id}`);
+        const article = await response.json();
+
+        if (!article) {
+            return { notFound: true }; 
+        }
+
+        return {
+            props: {
+                article,
+            },
+            revalidate: 60, 
+        };
+    } catch (error) {
+        console.error("Error fetching article:", error);
+
+        return {
+            notFound: true, 
+        };
+    }
 }
