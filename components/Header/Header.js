@@ -40,10 +40,17 @@ export default function Header() {
         <header className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 shadow-lg">
             <div className="container mx-auto flex justify-between items-center">
                 <h1 className="text-4xl font-bold hover:text-yellow-300 transition duration-300">
-                    PetCare Connect
+                <Link href="/" className="hover:text-yellow-300 transition duration-300">
+                   PetCare Connect
+                </Link>
                 </h1>
                 <nav className="flex items-center space-x-6">
                     <ul className="flex space-x-6">
+                        <li>
+                            <Link href="/" className="hover:text-yellow-300 transition duration-300">
+                                Home
+                            </Link>
+                        </li>
                         <li>
                             <Link href="/all-pets" className="hover:text-yellow-300 transition duration-300">
                                 Adopt a Pet
