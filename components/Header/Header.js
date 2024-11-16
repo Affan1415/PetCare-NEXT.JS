@@ -50,22 +50,22 @@ export default function Header() {
                             </Link>
                         </li>
                         <li>
-                            <a href="#articles" className="hover:text-yellow-300 transition duration-300">
+                            <Link href="/all-articles" className="hover:text-yellow-300 transition duration-300">
                                 Articles
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#stories" className="hover:text-yellow-300 transition duration-300">
+                            <Link href="#stories" className="hover:text-yellow-300 transition duration-300">
                                 Success Stories
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#features" className="hover:text-yellow-300 transition duration-300">
+                            <Link href="#features" className="hover:text-yellow-300 transition duration-300">
                                 Features
-                            </a>
+                            </Link>
                         </li>
                     </ul>
-                    {/* Login and Signup Links */}
+                    
                     <div className="flex space-x-4">
                         {user ? (
                             <>
