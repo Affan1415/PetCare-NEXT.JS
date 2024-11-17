@@ -9,22 +9,56 @@ export default function Profile() {
     const [user, setUser] = useState(null); // State to hold user data
     const [loading, setLoading] = useState(true); // State for loading state
     const [listedPets, setListedPets] = useState([]);
+    const [adoptedPets, setadoptedPets] = useState([])
+    const [favourites, setfavourites] = useState([])
 
     useEffect(() => {
-        const fetchListedPets = async () => {
+        const fetchfavourites = async () => {
             try {
                 // Send a POST request with the listed pet IDs
-                const response = await axios.post('/api/getListedPets', { petIds: user.listedPets });
-                setListedPets(response.data); // Set the full pet data
+                const response = await axios.post('/api/getListedPets', { petIds: user.favorites });
+                setfavourites(response.data); // Set the full pet data
             } catch (error) {
                 console.error("Error fetching listed pets:", error);
             }
         };
 
-        if (user?.listedPets?.length > 0) {
-            fetchListedPets(); // Fetch pets if there are listed pet IDs
+        if (user?.favorites?.length > 0) {
+            fetchfavourites(); // Fetch pets if there are listed pet IDs
         }
-    }, [user?.listedPets]);
+    }, [user?.favorites]);
+
+    useEffect(() => {
+        const fetchadoptedPets = async () => {
+            try {
+                // Send a POST request with the listed pet IDs
+                const response = await axios.post('/api/getListedPets', { petIds: user.adoptedPets });
+                setsetadoptedPets(response.data); // Set the full pet data
+            } catch (error) {
+                console.error("Error fetching listed pets:", error);
+            }
+        };
+
+        if (user?.adoptedPets?.length > 0) {
+            fetchadoptedPets(); // Fetch pets if there are listed pet IDs
+        }
+    }, [user?.adoptedPets]);
+
+    useEffect(() => {
+        const fetchadoptedPets = async () => {
+            try {
+                // Send a POST request with the listed pet IDs
+                const response = await axios.post('/api/getListedPets', { petIds: user.adoptedPets });
+                setsetadoptedPets(response.data); // Set the full pet data
+            } catch (error) {
+                console.error("Error fetching listed pets:", error);
+            }
+        };
+
+        if (user?.adoptedPets?.length > 0) {
+            fetchadoptedPets(); // Fetch pets if there are listed pet IDs
+        }
+    }, [user?.adoptedPets]);
 
     useEffect(() => {
         if (firebaseId) {
@@ -69,14 +103,14 @@ export default function Profile() {
                 {/* Tile 2: Favorites */}
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Favorites</h2>
-                    {user.favorites.length > 0 ? (
-                        <ul className="list-disc list-inside">
-                            {user.favorites.map((petId) => (
-                                <li key={petId}>Pet ID: {petId}</li>
+                    {favourites.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            {favourites.map((pet) => (
+                                <PetCard key={pet._id} pet={pet} userId={user?.uid || null} />
                             ))}
-                        </ul>
+                        </div>
                     ) : (
-                        <p>No favorite pets added yet.</p>
+                        <p>No Favorites.</p>
                     )}
                 </div>
 
@@ -103,9 +137,9 @@ export default function Profile() {
                 {/* Tile 4: Adopted Pets */}
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Adopted Pets</h2>
-                    {user.adoptedPets.length > 0 ? (
+                    {adoptedPets.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            {user.adoptedPets.map((pet) => (
+                            {adoptedPets.map((pet) => (
                                 <PetCard key={pet._id} pet={pet} userId={user?.uid || null} />
                             ))}
                         </div>
