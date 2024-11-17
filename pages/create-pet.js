@@ -16,7 +16,8 @@ export default function CreatePet() {
         photos: "",
         location: "",
         adoptionStatus: "available", // Default status
-        isFeatured:"yes"
+        isFeatured:"yes",
+        reviews:[],
     });
 
     const [loading, setLoading] = useState(false);

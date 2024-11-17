@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
-        const { name, species, breed, age, description, healthStatus, photos, location, adoptionStatus, createdBy ,isFeatured } = req.body;
+        const { name, species, breed, age, description, healthStatus, photos, location, adoptionStatus, createdBy ,isFeatured ,reviews = [], } = req.body;
 
         try {
             const { db } = await connectToDatabase();
@@ -22,7 +22,8 @@ export default async function handler(req, res) {
                 adoptionStatus,
                 createdBy, // Firebase ID of the user who listed the pet
                 createdAt: new Date(),
-                isFeatured
+                isFeatured,
+                reviews,
             });
 
             // Step 2: Find the user by Firebase ID and update their listedPets array
