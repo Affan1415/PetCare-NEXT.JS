@@ -34,28 +34,49 @@ const PetDetails = ({ pet }) => {
     );
 };
 
-// Fetch data for each pet based on the ID (SSR)
-export async function getServerSideProps({ params }) {
-    const { petId } = params; // Get petId from the URL
-    console.log(params)
 
+export async function getStaticPaths() {
+    try {
+        const response = await axios.get("http://localhost:3000/api/fetchpets"); 
+        const pets = response.data;
+
+        
+        const paths = pets.map((pet) => ({
+            params: { petId: pet._id },
+        }));
+
+        return {
+            paths,
+            fallback: true, 
+        };
+    } catch (error) {
+        console.error("Error fetching pets for paths:", error);
+        return {
+            paths: [],
+            fallback: true, 
+        };
+    }
+}
+
+
+export async function getStaticProps({ params }) {
+    const { petId } = params; 
 
     try {
         const response = await axios.get(`http://localhost:3000/api/getSinglePet/${petId}`);
         const pet = response.data;
-        
 
-        // Return pet data as props
         return {
             props: {
-                pet, // Pass fetched pet data to the component
+                pet, 
             },
+            revalidate: 100, 
         };
     } catch (error) {
         console.error("Error fetching pet details:", error);
         return {
             props: {
-                pet: null, // If an error occurs, return null for pet
+                pet: null, 
             },
         };
     }
