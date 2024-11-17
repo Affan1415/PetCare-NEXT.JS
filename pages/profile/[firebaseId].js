@@ -1,12 +1,30 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PetCard from "@/components/PetCard/PetCard";
 
 export default function Profile() {
     const router = useRouter();
     const { firebaseId } = router.query; // Get firebaseId from the URL
     const [user, setUser] = useState(null); // State to hold user data
     const [loading, setLoading] = useState(true); // State for loading state
+    const [listedPets, setListedPets] = useState([]);
+
+    useEffect(() => {
+        const fetchListedPets = async () => {
+            try {
+                // Send a POST request with the listed pet IDs
+                const response = await axios.post('/api/getListedPets', { petIds: user.listedPets });
+                setListedPets(response.data); // Set the full pet data
+            } catch (error) {
+                console.error("Error fetching listed pets:", error);
+            }
+        };
+
+        if (user?.listedPets?.length > 0) {
+            fetchListedPets(); // Fetch pets if there are listed pet IDs
+        }
+    }, [user?.listedPets]);
 
     useEffect(() => {
         if (firebaseId) {
@@ -33,7 +51,7 @@ export default function Profile() {
     const handleCreatePet = () => {
         router.push(`/create-pet`);
     };
-    
+
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <h1 className="text-3xl font-bold mb-6">User Profile</h1>
@@ -65,12 +83,12 @@ export default function Profile() {
                 {/* Tile 3: Listed Pets */}
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Listed Pets</h2>
-                    {user.listedPets.length > 0 ? (
-                        <ul className="list-disc list-inside">
-                            {user.listedPets.map((petId) => (
-                                <li key={petId}>Pet ID: {petId}</li>
+                    {listedPets.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {listedPets.map((pet) => (
+                                <PetCard key={pet._id} pet={pet} userId={user?.uid} />
                             ))}
-                        </ul>
+                        </div>
                     ) : (
                         <p>No pets listed for adoption.</p>
                     )}
@@ -86,14 +104,15 @@ export default function Profile() {
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Adopted Pets</h2>
                     {user.adoptedPets.length > 0 ? (
-                        <ul className="list-disc list-inside">
-                            {user.adoptedPets.map((petId) => (
-                                <li key={petId}>Pet ID: {petId}</li>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            {user.adoptedPets.map((pet) => (
+                                <PetCard key={pet._id} pet={pet} userId={user?.uid || null} />
                             ))}
-                        </ul>
+                        </div>
                     ) : (
                         <p>No pets adopted.</p>
                     )}
+
                 </div>
             </div>
         </div>
