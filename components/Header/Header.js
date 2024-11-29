@@ -1,27 +1,11 @@
 import Link from 'next/link';
-import  useAuth  from "@/lib/useAuth"
-import { useState, useEffect } from 'react';
+import useAuth from "@/lib/useAuth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { signOut } from 'firebase/auth';
 
-
 export default function Header() {
     const { user } = useAuth();
-    // const [user, setUser] = useState(null);
-
-    // useEffect(() => {
-    //     const unsubscribe = onAuthStateChanged(auth, (user) => {
-    //         if (user) {
-    //             setUser(user);
-    //             console.log(user.Created)
-    //         } else {
-    //             setUser(null);
-    //         }
-    //     });
-
-    //     return () => unsubscribe(); // Cleanup the subscription on unmount
-    // }, []);
 
     const handleLogout = async () => {
         try {
@@ -32,17 +16,17 @@ export default function Header() {
         }
     };
 
-    const handleprofile = () => {
-
-    }
+    const handleProfile = () => {
+        // You can add profile-related functionality here if needed
+    };
 
     return (
         <header className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 shadow-lg">
             <div className="container mx-auto flex justify-between items-center">
                 <h1 className="text-4xl font-bold hover:text-yellow-300 transition duration-300">
-                <Link href="/" className="hover:text-yellow-300 transition duration-300">
-                   PetCare Connect
-                </Link>
+                    <Link href="/" className="hover:text-yellow-300 transition duration-300">
+                        PetCare Connect
+                    </Link>
                 </h1>
                 <nav className="flex items-center space-x-6">
                     <ul className="flex space-x-6">
@@ -61,23 +45,12 @@ export default function Header() {
                                 Articles
                             </Link>
                         </li>
-                        <li>
-                            <Link href="#stories" className="hover:text-yellow-300 transition duration-300">
-                                Success Stories
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#features" className="hover:text-yellow-300 transition duration-300">
-                                Features
-                            </Link>
-                        </li>
                     </ul>
-                    
+
                     <div className="flex space-x-4">
                         {user ? (
                             <>
-                                <Link onClick={handleprofile}
-                                href={`/profile/${user.uid}`} >
+                                <Link onClick={handleProfile} href={`/profile/${user.uid}`}>
                                     <button className="text-white py-2 px-6 font-semibold hover:underline">
                                         Welcome, {user.email}
                                     </button>
@@ -104,7 +77,6 @@ export default function Header() {
                             </>
                         )}
                     </div>
-
                 </nav>
             </div>
         </header>
