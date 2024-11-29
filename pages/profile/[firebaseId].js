@@ -1,4 +1,3 @@
-// pages/profile/[firebaseId].js
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -10,8 +9,9 @@ export default function Profile() {
   const [user, setUser] = useState(null); // State to hold user data
   const [loading, setLoading] = useState(true); // Loading state
   const [favorites, setFavorites] = useState([]); // Full pet data for favorites
+  const [adoptedPets, setAdoptedPets] = useState([]); // Full pet data for adopted pets
 
-  // Fetch user and favorites
+  // Fetch user data, favorites, and adopted pets
   useEffect(() => {
     if (!firebaseId) return;
 
@@ -27,6 +27,14 @@ export default function Profile() {
             petIds: response.data.favorites,
           });
           setFavorites(favoritesResponse.data);
+        }
+
+        // Fetch adopted pets if user exists
+        if (response.data.adoptedPets?.length > 0) {
+          const adoptedPetsResponse = await axios.post("/api/getListedPets", {
+            petIds: response.data.adoptedPets,
+          });
+          setAdoptedPets(adoptedPetsResponse.data);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -48,8 +56,12 @@ export default function Profile() {
         {/* Personal Info */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold mb-4">Personal Info</h2>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Email:</strong> {user.email}</p>
+          <p>
+            <strong>Username:</strong> {user.username}
+          </p>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
         </div>
 
         {/* Favorites */}
@@ -63,6 +75,20 @@ export default function Profile() {
             </div>
           ) : (
             <p>No favorites yet.</p>
+          )}
+        </div>
+
+        {/* Adopted Pets */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold mb-4">Adopted Pets</h2>
+          {adoptedPets.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {adoptedPets.map((pet) => (
+                <PetCard key={pet._id} pet={pet} />
+              ))}
+            </div>
+          ) : (
+            <p>No adopted pets yet.</p>
           )}
         </div>
       </div>
