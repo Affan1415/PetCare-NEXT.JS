@@ -49,6 +49,10 @@ export default function Profile() {
   if (loading) return <div>Loading...</div>;
   if (!user) return <div>User not found or there was an error fetching data.</div>;
 
+  const handleCreatePet = () => {
+    router.push('/create-pet');
+};
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-6">User Profile</h1>
@@ -91,6 +95,25 @@ export default function Profile() {
             <p>No adopted pets yet.</p>
           )}
         </div>
+         {/* Tile 3: Listed Pets */}
+         <div className="bg-white p-6 rounded-lg shadow-md">
+                    <h2 className="text-xl font-semibold mb-4">Listed Pets</h2>
+                    {user.listedPets.length > 0 ? (
+                        <ul className="list-disc list-inside">
+                            {user.listedPets.map((petId) => (
+                                <li key={petId}>Pet ID: {petId}</li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No pets listed for adoption.</p>
+                    )}
+                    <button
+                        onClick={handleCreatePet}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+                    >
+                        Create New Pet
+                    </button>
+                </div>
       </div>
     </div>
   );
